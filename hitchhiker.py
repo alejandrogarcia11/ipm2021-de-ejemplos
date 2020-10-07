@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import threading
+
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -33,7 +35,7 @@ vbox.pack_start(hbox, expand= False, fill= False, padding= 8)
 w.add(vbox)
 w.show_all()
 
-def on_get_ultimate_answer_clicked(widget):
+def get_ultimate_answer():
     # Code by Deep Thought
     #   The Answer to The Ultimate Question of Life, the Universe, and Everything...")
     #   ...are you F@#$&!G kidding me?
@@ -41,6 +43,9 @@ def on_get_ultimate_answer_clicked(widget):
     years = 7_500_000 * 365 * 24 * 60 * 60
     time.sleep(7_500_000)
     return "42"
+
+def on_get_ultimate_answer_clicked(widget):
+    threading.Thread(target= get_ultimate_answer, daemon= True).start()
 
 button1.connect('clicked', on_get_ultimate_answer_clicked)
 
