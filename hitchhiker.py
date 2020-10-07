@@ -4,7 +4,7 @@ import threading
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 
 w = Gtk.Window(title= "hitchhiker's guide to the galaxy")
 w.connect('delete-event', Gtk.main_quit)
@@ -15,6 +15,9 @@ label1 = Gtk.Label(label= "The Answer to The Ultimate Question of Life, the Univ
                    justify= Gtk.Justification.FILL)
 label1.set_line_wrap(True)
 vbox.add(label1)
+
+spinner = Gtk.Spinner()
+vbox.pack_start(spinner, expand= False, fill= False, padding= 8)
 
 hbox = Gtk.HBox(spacing= 8, halign= Gtk.Align.CENTER)
 button1 = Gtk.Button(label= "Get ultimate answer")
@@ -42,9 +45,9 @@ def get_ultimate_answer():
     import time
     years = 7_500_000 * 365 * 24 * 60 * 60
     time.sleep(7_500_000)
-    return "42"
 
 def on_get_ultimate_answer_clicked(widget):
+    spinner.start()
     threading.Thread(target= get_ultimate_answer, daemon= True).start()
 
 button1.connect('clicked', on_get_ultimate_answer_clicked)
