@@ -38,13 +38,19 @@ vbox.pack_start(hbox, expand= False, fill= False, padding= 8)
 w.add(vbox)
 w.show_all()
 
+def update_answer(answer):
+    spinner.stop()
+    label1.set_label(f"The Answer to The Ultimate Question of Life, the Universe, and Everything is {answer}")
+    
 def get_ultimate_answer():
     # Code by Deep Thought
     #   The Answer to The Ultimate Question of Life, the Universe, and Everything...")
     #   ...are you F@#$&!G kidding me?
     import time
     years = 7_500_000 * 365 * 24 * 60 * 60
-    time.sleep(7_500_000)
+    #time.sleep(7_500_00)
+    time.sleep(2)
+    GLib.idle_add(update_answer, "42")
 
 def on_get_ultimate_answer_clicked(widget):
     spinner.start()
