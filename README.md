@@ -1,2 +1,4 @@
-# ipm2021-de-ejemplos
-Código de los ejemplos usados en clase
+# IPM 2021. Docencia Expositiva: Ejemplos
+
+Este repositorio contiene el código correspondiente a los ejemplos usados en clase.
+
