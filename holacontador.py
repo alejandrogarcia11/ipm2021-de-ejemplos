@@ -25,7 +25,8 @@ count = 0
 def on_contar_clicked(widget):
     global count, label1
     count = count + 1
-    label1.set_label(f"Has pulsado {count} veces")
+    veces = "1 vez" if count == 1 else f"{count} veces"
+    label1.set_label(f"Has pulsado {veces}")
 
 button.connect('clicked', on_contar_clicked)
 
