@@ -9,13 +9,9 @@ w.connect('delete-event', Gtk.main_quit)
 
 vbox = Gtk.Box(orientation= Gtk.Orientation.VERTICAL)
 
-label1 = Gtk.Label(label= "Has pulsado")
+label1 = Gtk.Label(label= "Has pulsado 8 veces")
 label1.show()
 vbox.pack_start(label1, expand= True, fill= True, padding= 8)
-
-label2 = Gtk.Label(label= "8")
-label2.show()
-vbox.pack_start(label2, expand= True, fill= True, padding= 8)
 
 button = Gtk.Button(label= "Contar")
 button.show()
