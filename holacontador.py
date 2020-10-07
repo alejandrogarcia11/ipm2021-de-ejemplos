@@ -20,4 +20,13 @@ vbox.pack_start(button, expand= False, fill= False, padding= 8)
 w.add(vbox)
 w.show_all()
 
+count = 0
+
+def on_contar_clicked(widget):
+    global count, label1
+    count = count + 1
+    label1.set_label(f"Has pulsado {count} veces")
+
+button.connect('clicked', on_contar_clicked)
+
 Gtk.main()
