@@ -6,12 +6,15 @@ class Controller:
         self.model = model
         self.view = view.View(self.model.count)
         self.view.connect_contar_clicked(self.on_contar_clicked)
+        self.model.add_observer(self)
 
         
     def on_contar_clicked(self, widget):
         self.model.count_up()
-        self.view.update_count(self.model.count)
 
+        
+    def update(self):
+        self.view.update_count(self.model.count)
 
 
 
