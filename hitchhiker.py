@@ -24,7 +24,7 @@ button1 = Gtk.Button(label= "Get ultimate answer")
 hbox.pack_start(button1, expand= False, fill= False, padding= 8)
 vbox.pack_start(hbox, expand= False, fill= False, padding= 8)
 
-separator = Gtk.Separator(orientation= Gtk.Orientation.VERTICAL)
+separator = Gtk.Separator(orientation= Gtk.Orientation.HORIZONTAL)
 vbox.pack_start(separator, expand= False, fill= False, padding= 12)
 
 label2 = Gtk.Label(label= "You've picked 0 towels")
