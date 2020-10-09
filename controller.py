@@ -12,5 +12,9 @@ class Controller:
         self.model.count_up()
         self.view.update_count(self.model.count)
 
-    def start(self):
-        view.start()
+
+
+
+
+def view_start():
+    view.start()

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-from controller import Controller
+
+import controller
 from model import Model
+import view
 
 if __name__ == '__main__':
     model = Model()
-    controler = Controller(model)
-    controler.start()
+    controller.Controller(model)
+    controller.Controller(model)
+    controller.view_start()
