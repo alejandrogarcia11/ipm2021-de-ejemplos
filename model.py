@@ -1,18 +1,31 @@
-class Model:
+import datetime
+
+class BookingData:    
     def __init__(self):
-        self.count = 0
-        self.observers = set()
+        self.one_way = True
+        self.start_date = None
+        self.return_date = None
 
+    def reset(self):
+        self.start_date = None
+        self.return_date = None
         
-    def count_up(self):
-        self.count = self.count + 1
-        self.notify()
+    def is_valid(self):
+        if self.one_way:
+            error = self.start_date is None
+        else:
+            error = self.start_date is None or self.return_date is None or self.return_date < self.start_date
+        return not error
 
-        
-    def add_observer(self, observer):
-        self.observers.add(observer)
+    
 
-        
-    def notify(self):
-        for observer in self.observers:
-            observer.update()
+class BookingClient:
+    def book(self, data):
+        if data.is_valid():
+            import random
+            if random.choice([True, False]):
+                pass
+            else:
+                raise IOError("Couldn't book flight")
+        else:
+            raise ValueError("Invalid dates")
