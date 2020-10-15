@@ -25,12 +25,16 @@ class View:
         self.flight_type.add_attribute(renderer_text, "text", 0)
 
         self.start_date = Gtk.Entry(text= "")
+        self.start_date.set_placeholder_text("Ex. {}".format(date_sample))
         self.return_date = Gtk.Entry(text= "")
+        self.return_date.set_placeholder_text("Ex. {}".format(date_sample))
         self.book = Gtk.Button(label= "Book")
 
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
         vbox.pack_start(self.flight_type, False, False, 0)
+        vbox.pack_start(Gtk.Label(label= "Start date:", xalign=0), False, False, 0)
         vbox.pack_start(self.start_date, False, False, 0)
+        vbox.pack_start(Gtk.Label(label= "Return date:", xalign=0), False, False, 0)
         vbox.pack_start(self.return_date, False, False, 0)
         vbox.pack_start(self.book, False, False, 0)
         
@@ -57,13 +61,6 @@ class View:
     def connect_book_clicked(self, fun):
         self.book.connect('clicked', fun)
 
-    # Instead of:
-    #    def update_flight_type(self, flight_type):
-    #    def update_start_date(self, date):
-    #    def update_return_date(self, date):
-    # or:
-    #    def update_view(self, flight_type= None, start_date= None, return_date= None):
-
     def update_view(self, **kwargs):
         for name, value in kwargs.items():
             if name == 'flight_type':
@@ -72,9 +69,24 @@ class View:
                 self.start_date.set_text(value)
             elif name == 'return_date':
                 self.return_date.set_text(value)
+            elif name == 'start_date_is_ok':
+                self._update_entry_is_valid(self.start_date, value)
+            elif name == 'return_date_is_ok':
+                self._update_entry_is_valid(self.return_date, value)
+            elif name == 'return_date_enabled':
+                self.return_date.set_sensitive(value)
+            elif name == 'book_enabled':
+                self.book.set_sensitive(value)
             else:
                 raise TypeError(f"update_view() got an unexpected keyword argument '{name}'")
     
+    def _update_entry_is_valid(self, entry, is_valid):
+        if is_valid:
+            entry.get_style_context().remove_class('error')
+        else:
+            entry.get_style_context().add_class('error')
+            
+
     def show_ok(self, text):
         dialog = Gtk.MessageDialog(parent= self.win,
                                    message_type= Gtk.MessageType.INFO,

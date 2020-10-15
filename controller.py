@@ -29,20 +29,27 @@ class Controller:
         self._update_view()
         
     def on_start_date_changed(self, entry):
-        s = entry.get_text()
+        s = entry.get_text().strip()   # <-- importante hacer el strip
         date = self._parse_date(s)
         self.model.start_date = date
         self._update_view()
         
     def on_return_date_changed(self, entry):
-        s = entry.get_text()
+        s = entry.get_text().strip()   # <-- importante hacer el strip
         date = self._parse_date(s)
         self.model.return_date = date
         self._update_view()
 
     def _update_view(self, **kwargs):
-        self.view.update_view(**kwargs)
-    
+        data_is_valid = self.model.is_valid()
+        start_date_is_valid = self.model.start_date is not None
+        return_date_is_valid = self.model.return_date is not None and not (start_date_is_valid and not data_is_valid)
+        self.view.update_view(return_date_enabled= not self.model.one_way,
+                              start_date_is_ok= start_date_is_valid,
+                              return_date_is_ok= return_date_is_valid,
+                              book_enabled= data_is_valid,
+                              **kwargs)
+        
     def on_book_clicked(self, w):
         try:
             model.BookingClient().book(self.model)
@@ -54,6 +61,7 @@ class Controller:
                               return_date= "" if rdate is None else rdate.isoformat())
         except Exception as e:
             self.view.show_error(str(e))
+
             
     def _parse_date(self, s):
         try:
