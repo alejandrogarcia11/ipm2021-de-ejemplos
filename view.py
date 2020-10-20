@@ -33,17 +33,23 @@ class View:
         self.flight_type.pack_start(renderer_text, True)
         self.flight_type.add_attribute(renderer_text, "text", 0)
 
+        label_start_date = Gtk.Label(label= _("Start date:"), xalign=0)
         self.start_date = Gtk.Entry(text= "")
         self.start_date.set_placeholder_text(_("Ex. {}").format(date_sample))
+        self.start_date.get_accessible().add_relationship(Atk.RelationType.LABELLED_BY,
+                                                          label_start_date.get_accessible())
+        label_return_date = Gtk.Label(label= _("Return date:"), xalign=0)
         self.return_date = Gtk.Entry(text= "")
         self.return_date.set_placeholder_text(_("Ex. {}").format(date_sample))
+        self.return_date.get_accessible().add_relationship(Atk.RelationType.LABELLED_BY,
+                                                           label_return_date.get_accessible())
         self.book = Gtk.Button(label= _("Book"))
 
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
         vbox.pack_start(self.flight_type, False, False, 0)
-        vbox.pack_start(Gtk.Label(label= _("Start date:"), xalign=0), False, False, 0)
+        vbox.pack_start(label_start_date, False, False, 0)
         vbox.pack_start(self.start_date, False, False, 0)
-        vbox.pack_start(Gtk.Label(label= _("Return date:"), xalign=0), False, False, 0)
+        vbox.pack_start(label_return_date, False, False, 0)
         vbox.pack_start(self.return_date, False, False, 0)
         vbox.pack_start(self.book, False, False, 0)
         
