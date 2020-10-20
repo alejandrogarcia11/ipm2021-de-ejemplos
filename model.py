@@ -1,4 +1,14 @@
+#!/usr/bin/env python3
+
 import datetime
+import locale
+import gettext
+from pathlib import Path
+import random
+
+_ = gettext.gettext
+N_ = gettext.ngettext
+
 
 class BookingData:    
     def __init__(self):
@@ -18,6 +28,7 @@ class BookingData:
         return not error
 
     
+    
 
 class BookingClient:
     def book(self, data):
@@ -26,6 +37,7 @@ class BookingClient:
             if random.choice([True, False]):
                 pass
             else:
-                raise IOError("Couldn't book flight")
+                raise IOError(_("Couldn't book flight"))
         else:
-            raise ValueError("Invalid dates")
+            raise ValueError(_("Invalid dates"))
+            

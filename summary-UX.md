@@ -9,7 +9,9 @@
   * Diálogos (sólo cuando es realmente imprescindible interrumpir para la interacción) 
   * Etiquetas para los campos del formulario
   * Placeholders con ejemplos para los Entries
-  * Evitar errores de la usuaria (preprocesar entrada, ...)
   * Feedback errores (marcar en formulario, no interrumpor con diálogo)
   * Deshabilitar Entry cuando no es necesaria
   * Deshabilitar vs. no deshabilitar botón de "enviar" formulario
+  * i18n
+    * fechas
+    * idioma del texto

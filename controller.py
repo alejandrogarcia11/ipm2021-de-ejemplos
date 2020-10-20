@@ -1,4 +1,12 @@
+#!/usr/bin/env python3
+
 import datetime
+import random
+import locale
+import gettext
+
+_ = gettext.gettext
+N_ = gettext.ngettext
 
 import model
 
@@ -8,12 +16,12 @@ class Controller:
 
     def set_view(self, view):
         self.view = view
-        view.build_view(date_sample= datetime.datetime.today().isoformat())
+        view.build_view(date_sample= datetime.datetime.today().strftime("%x"))
         sdate = self.model.start_date
         rdate = self.model.return_date
         self._update_view(flight_type= 0 if self.model.one_way else 1,
-                          start_date= "" if sdate is None else sdate.isoformat(),
-                          return_date= "" if rdate is None else rdate.isoformat())
+                          start_date= "" if sdate is None else sdate.strftime("%x"),
+                          return_date= "" if rdate is None else rdate.strftime("%x"))
         view.connect_delete_event(self.view.main_quit)
         view.connect_flight_type_changed(self.on_flight_type_changed)
         view.connect_start_date_changed(self.on_start_date_changed)
@@ -53,18 +61,17 @@ class Controller:
     def on_book_clicked(self, w):
         try:
             model.BookingClient().book(self.model)
-            self.view.show_ok("Flight booked")
+            self.view.show_ok(_("Flight booked"))
             self.model.reset()
             sdate = self.model.start_date
             rdate = self.model.return_date
-            self._update_view(start_date= "" if sdate is None else sdate.isoformat(),
-                              return_date= "" if rdate is None else rdate.isoformat())
+            self._update_view(start_date= "" if sdate is None else sdate.strftime("%x"),
+                              return_date= "" if rdate is None else rdate.strftime("%x"))
         except Exception as e:
             self.view.show_error(str(e))
 
-            
     def _parse_date(self, s):
         try:
-            return datetime.datetime.fromisoformat(s)
+            return datetime.datetime.strptime(s, "%x")
         except ValueError:
             return None
